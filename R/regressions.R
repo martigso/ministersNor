@@ -54,5 +54,5 @@ negbin1<-glm.nb(resigcalls~rc_cum_lag + dur_cen_y + factor(gender) + age_cen + m
                   factor(education_dum) + factor(youthCen) + factor(youthLoc)+ factor(CabinetType) + factor(structure),
                 data=ministers2, subset=prime_minister==0 & nsd_id!=299)
 
-summary(negbin1)
+percincrease(coef(negbin1), 1)
 

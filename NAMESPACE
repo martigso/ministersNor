@@ -2,3 +2,4 @@
 
 export(hazper)
 export(percincrease)
+import(survival)
