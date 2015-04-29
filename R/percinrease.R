@@ -47,7 +47,7 @@
 #' percincrease(coef(negbin1), 1)
 #'
 #' @export
-#' @import survival
+#' @import MASS
 #'
 
 percincrease<-function(beta, delta){

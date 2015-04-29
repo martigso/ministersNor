@@ -2,4 +2,4 @@
 
 export(hazper)
 export(percincrease)
-import(survival)
+import(MASS)
