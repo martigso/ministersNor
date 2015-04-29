@@ -1,0 +1,8 @@
+Package: ministersNor
+Title: Ministerial durability data
+Version: 0.1
+Authors@R: person("Martin", "G. Soyland", , "martin.g.soyland@gmail.com", role = c("aut", "cre"))
+Description: This package contains the data for the Master's Thesis "Survival of the ministers: On ministerial durability in post-war Norway"
+Depends: R (>= 3.2.0)
+License: What license is it under?
+LazyData: true
