@@ -2,4 +2,7 @@
 
 export(hazper)
 export(percincrease)
+export(st.lague)
 import(MASS)
+import(dplyr)
+import(uacd)
