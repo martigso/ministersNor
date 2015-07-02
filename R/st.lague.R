@@ -19,8 +19,6 @@
 #'  
 #' @export
 #' 
-#' @import dplyr 
-#' @import uacd
 
 st.lague<-function(seats, n.posts, n.parties){
   
