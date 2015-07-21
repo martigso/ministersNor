@@ -71,6 +71,14 @@ st.lague<-function(seats, n.posts, n.parties){
     seats_now = ifelse(posts_now==38, seats_now/77, seats_now)
     seats_now = ifelse(posts_now==39, seats_now/79, seats_now)
     seats_now = ifelse(posts_now==40, seats_now/81, seats_now)
+    seats_now = ifelse(posts_now==41, seats_now/83, seats_now)
+    seats_now = ifelse(posts_now==42, seats_now/85, seats_now)
+    seats_now = ifelse(posts_now==43, seats_now/87, seats_now)
+    seats_now = ifelse(posts_now==44, seats_now/89, seats_now)
+    seats_now = ifelse(posts_now==45, seats_now/91, seats_now)
+    seats_now = ifelse(posts_now==46, seats_now/93, seats_now)
+    seats_now = ifelse(posts_now==47, seats_now/95, seats_now)
+    
     
     posts_now = ifelse(seats_now==max(seats_now), posts_now+1, posts_now)
   }
