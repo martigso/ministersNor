@@ -1,0 +1,16 @@
+Package: ministersNor
+Encoding: UTF-8
+Type: Package
+Title: Data and online appendix for "Survival of the ministers"
+Version: 0.2
+Date: 2016-06-20
+Authors@R:
+  person("Martin", "Søyland", role = c("aut", "cre"), email = "m.g.soyland@stv.uio.no")
+Maintainer:
+  person("Martin", "Søyland", role = c("aut", "cre"), email = "m.g.soyland@stv.uio.no")
+Description: This package serves as an online appendix for the paper "Survival of the ministers"
+License: GLP-3
+LazyData: TRUE
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
