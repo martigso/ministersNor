@@ -1,8 +1,8 @@
 ---
 title: "Online appendix"
 author: "Martin G. Søyland"
-date: "`r format(Sys.time(), '%d/%m/%Y')`"
-output: html_document
+date: "`r format(Sys.time(), '&Y-%m-%d')`"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
