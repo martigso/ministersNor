@@ -33,8 +33,8 @@ source("./thesis/R/getmode.R")
 ```
 
 
-## The models
-All models require the _survival_-package
+## The paper models
+All models from the paper is replicated below. These models require the _survival_-package to run:
 ```{r prim_mods}
 library(survival)
 ```
@@ -42,43 +42,43 @@ library(survival)
 ### Base model
 
 ```{r base}
-base <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen + 
-                factor(gender) + factor(education_dum) + 
-                frailty(jurisdiction), 
+base <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen +
+                factor(gender) + factor(education_dum) +
+                frailty(jurisdiction),
               data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(base)[["coefficients"]]
+round(summary(base)[["coefficients"]], digits = 3)
 ```
 
 ### Including experience
 ```{r experience}
-experience <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + 
-                      age_cen + factor(gender) + factor(education_dum) + 
-                      factor(youthAny) + minister_exp_cum_y_lag + factor(parlTen_cum2) + 
+experience <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls +
+                      age_cen + factor(gender) + factor(education_dum) +
+                      factor(youthAny) + minister_exp_cum_y_lag + factor(parlTen_cum2) +
                       frailty(jurisdiction),
                     data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(experience)[["coefficients"]]
+round(summary(experience)[["coefficients"]], digits = 3)
 ```
 
 ### Cabinet attributes
 
 ```{r cabinet}
-cab <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + 
-               age_cen + factor(gender) + factor(education_dum) + 
+cab <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls +
+               age_cen + factor(gender) + factor(education_dum) +
                factor(CabinetType) + factor(structure)+
                frailty(jurisdiction),
              data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(cab)[["coefficients"]]
+round(summary(cab)[["coefficients"]], digits = 3)
 ```
 
 
 ### Full model
 ```{r all}
-all <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen + factor(gender) + 
-               factor(youthAny) + minister_exp_cum_y_lag + factor(parlTen_cum2) + 
-               factor(education_dum) +  factor(CabinetType) + factor(structure) + 
+all <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen + factor(gender) +
+               factor(youthAny) + minister_exp_cum_y_lag + factor(parlTen_cum2) +
+               factor(education_dum) +  factor(CabinetType) + factor(structure) +
                frailty(jurisdiction),
              data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(all)[["coefficients"]]
+round(summary(all)[["coefficients"]], digits = 3)
 ```
 
 
@@ -86,13 +86,13 @@ summary(all)[["coefficients"]]
 
 ### Age squared
 ```{r agesq}
-agesq <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + 
-                 poly(age_cen, 2, raw = FALSE) + factor(gender) + 
-                 factor(youthAny) + minister_exp_cum_y_lag + factor(parlTen_cum2) + 
-                 factor(education_dum) +  factor(CabinetType) + factor(structure) + 
+agesq <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls +
+                 poly(age_cen, 2, raw = FALSE) + factor(gender) +
+                 factor(youthAny) + minister_exp_cum_y_lag + factor(parlTen_cum2) +
+                 factor(education_dum) +  factor(CabinetType) + factor(structure) +
                  frailty(jurisdiction),
                data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(agesq)[["coefficients"]]
+round(summary(agesq)[["coefficients"]], digits = 3)
 
 ```
 
@@ -117,6 +117,8 @@ pred_plot$upper <- pred_plot$fit+1.96*pred_plot$se.fit
 pred_plot$lower <- pred_plot$fit-1.96*pred_plot$se.fit
 pred_plot$age_cen <- pred_plot$age_cen + median(ministers$age)
 
+library(ggplot2)
+
 ggplot(pred_plot, aes(x=age_cen, y=fit))+
   geom_line(stat="identity", color="black")+
   geom_ribbon(aes(ymax=upper, ymin=lower, color=NULL), alpha=.2, fill="black") +
@@ -130,7 +132,8 @@ ggplot(pred_plot, aes(x=age_cen, y=fit))+
         panel.border=element_blank(),
         strip.background=element_blank(),
         panel.margin=unit(1, "cm"),
-        axis.line=element_line(lineend = "square"),
+        axis.line.x=element_line(),
+        axis.line.y=element_line(),
         axis.title.y=element_text(vjust=1.5, siz=12),
         axis.title.x=element_text(vjust=0, size=12))
 ```
@@ -139,24 +142,24 @@ ggplot(pred_plot, aes(x=age_cen, y=fit))+
 The following example shows how parliamentary experience does matter when it is coded as 1 when a minister has been in parliament more than 0 days:
 ```{r parl_onday}
 ministers$parlTen_cum3 <- ifelse(ministers$parlTen_cum > 0, 1, 0)
-parl_onday <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen + 
-                      factor(gender) + factor(youthAny) + minister_exp_cum_y_lag + 
+parl_onday <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen +
+                      factor(gender) + factor(youthAny) + minister_exp_cum_y_lag +
                       factor(parlTen_cum3) + factor(education_dum) +  
                       factor(CabinetType) + factor(structure) + frailty(jurisdiction),
                     data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(parl_onday)[["coefficients"]]
+round(summary(parl_onday)[["coefficients"]], digits = 3)
 ```
 
 ### Seats and reshuffles
 Following Huber and Martinez-Gallardo (2008), I test the whether adverse selection could have a limiting effect on resignation calls by including party size of the minister and reshuffles (Kam and Indridason 2005). 1 indicates that the minister has been reshuffled in this cabinet, and 0 that he has not:
 ```{r reshuffles}
-reshuffles <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen + 
-                      factor(gender) + factor(youthAny) + minister_exp_cum_y_lag + 
+reshuffles <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen +
+                      factor(gender) + factor(youthAny) + minister_exp_cum_y_lag +
                       factor(parlTen_cum2) + factor(education_dum) +  
                       factor(CabinetType) + factor(structure) + factor(reshuffle)+
                       frailty(jurisdiction),
                     data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(reshuffles)[["coefficients"]]
+round(summary(reshuffles)[["coefficients"]], digits = 3)
 ```
 
 
@@ -167,16 +170,16 @@ if(any(grepl(".html", list.files("./data/seats/")))==FALSE){
 }
 load("./data/seats/seats.rda")
 
-ministers <- merge(x = ministers, y = seats, by.x = c("party", "election_year"), 
+ministers <- merge(x = ministers, y = seats, by.x = c("party", "election_year"),
                    by.y = c("party_name", "election_year"), all.x = TRUE)
 
-seats <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen + 
-                      factor(gender) + factor(youthAny) + minister_exp_cum_y_lag + 
+seats <- coxph(Surv(dur_start, dur_end, event2) ~ resigcalls + age_cen +
+                      factor(gender) + factor(youthAny) + minister_exp_cum_y_lag +
                       factor(parlTen_cum2) + factor(education_dum) +  
                       factor(CabinetType) + factor(structure) + seats +
                       frailty(jurisdiction),
                     data=ministers, subset=prime_minister==0 & nsd_id!=299)
-summary(seats)[["coefficients"]]
+round(summary(seats)[["coefficients"]], digits = 3)
 ```
 
 
@@ -184,24 +187,25 @@ summary(seats)[["coefficients"]]
 
 
 ## Resiganation call coding scheme
+The table below shows the search strings for aquiring the resignation calls. Importantly, the matched articles were read and subjectively evaluated to be a resignation call or not -- not all matched articles were counted as resignation calls.
 
-| Fixed string         | Varying string        |
-| -------------------- | --------------------- |
-| "Minister name" AND  |  "gå\* av\*"          |
-|                 	   |  "må\* gå\*"          |
-|                   	 |	"bør\* gå \*"        |
-|                   	 |  "burde\* gå \*"      |
-|                   	 |	"skulle\* gå \*"     |
-|                   	 |		"trekke\* seg"     |
-|                   	 |	  "avgang\*"         |
-|                   	 |  "avskjed\*"          |
-|                   	 |  "vurder\* sin"       |
-|                   	 |	"vurder\* stilling\*"|
-|                   	 |	"vurder\* posisjon\*"|
-|                   	 |	  "fratre\*"         |
-|                   	 |		"takk\* av"        |
-|                   	 |	  "tre\* tilb\*"     |
-|                   	 |	  "avsett\*"         |
-|                   	 |	  "avsatt"           |
-|                   	 |	  "skift\* ut"       |
-|                   	 |	  "mistill\*"        |
+| Fixed string          | Varying string        |
+|:----------------------|:----------------------|
+| "[Minister name]" AND | "gå\* av\*"           |
+|                       | "må\* gå\*"           |
+|                       | "bør\* gå \*"         |
+|                       | "burde\* gå \*"       |
+|                       | "skulle\* gå \*"      |
+|                       | "trekke\* seg"        |
+|                       | "avgang\*"            |
+|                       | "avskjed\*"           |
+|                       | "vurder\* sin"        |
+|                       | "vurder\* stilling\*" |
+|                       | "vurder\* posisjon\*" |
+|                       | "fratre\*"            |
+|                       | "takk\* av"           |
+|                       | "tre\* tilb\*"        |
+|                       | "avsett\*"            |
+|                       | "avsatt"              |
+|                       | "skift\* ut"          |
+|                       | "mistill\*"           |
