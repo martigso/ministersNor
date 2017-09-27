@@ -7,11 +7,18 @@ elections <- c("1945-49","1950-53", "1954-57", "1958-61",
 
 
 #### Getting seat information from stortinget.no ####
-
+if(.Platform$OS.type == "unix"){
   lapply(elections, function(x)
     system(paste0("wget -O data/seats/", x, ".html ", "https://www.stortinget.no/no/",
                   "Representanter-og-komiteer/Partiene/Partioversikt/?pid=",
                   x)))
+  
+} else if(.Platform$OS.type == "windows"){
+  lapply(elections, function(x){
+    download.file(paste0("https://www.stortinget.no/no/Representanter-og-komiteer/Partiene/Partioversikt/?pid=", x),
+                  destfile = paste0("data/seats/", x, ".html"))
+  })
+}
 
 
 seats <- lapply(paste0(elections, ".html"), function(yeah) read_html(paste0("./data/seats/", yeah)))
