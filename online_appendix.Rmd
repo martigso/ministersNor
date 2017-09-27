@@ -10,8 +10,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(gridExtra);library(texreg);library(car);library(ggplot2);library(grid);library(reshape2)
-library(stargazer);library(dplyr)
+library(ggplot2)
 theme_set(theme_bw())
 ```
 ## How to get data
@@ -209,3 +208,45 @@ The table below shows the search strings for aquiring the resignation calls. Imp
 |                       | "avsatt"              |
 |                       | "skift\* ut"          |
 |                       | "mistill\*"           |
+
+## Ministerial jurisdiction categorization
+| __Jurisdiction__     | __Title (ENG) – Minister of...__          | __Title (NOR)__                          |
+|:---------------------|:------------------------------------------|:-----------------------------------------|
+|__Administration__    | Government Administration                 | Administrasjonsminister                  |
+|                      | Labour and Government Administration      | Arbeids- og administrasjonsminister      |
+|                      | Labour and Social Inclusion               | Arbeids- og inkluderingsminister         |
+|                      | Consumption and Government Administration | Forbruker- og administrasjonsminister    |
+|                      | Supply and Reconstruction                 | Forsyning- og gjenreisningsminister      |
+|                      | Reform                                    | Fornyingsminister                        |
+|                      | Planning                                  | Planleggingsminister                     |
+|                      | Labour                                    | Arbeidsminister                          |
+|                      | Ministers without portfolio               | Minister uten portefølje                 |
+| __Agriculture__      | Agriculture                               | Landbruksminister                        |
+| __Culture__          | Culture                                   | Kulturminister                           |
+| __Defense__          | Defense                                   | Forsvarsminister                         |
+| __Education__        | Research and Higher Education             | Forsknings- og høyere utd.sminister      |
+|                      | Education and Church Affairs              | Kirke- og undervisningsminister          |
+|                      | Education and Research                    | Kunnskapsminister                        |
+| __Environment__      | the Environment                           | Miljøvernminister                        |
+| __Finance__          | Finance                                   | Finansminister                           |
+|                      | Prices                                    | Prisminister                             |
+| __Foreign affairs__  | International Development                 | Bistandsminister                         |
+|                      | Human Rights                              | Menneskerettighetsminister               |
+|                      | Foreign Affairs                           | Utenriksminister                         |
+|                      | International Development                 | Utviklingsminister                       |
+| __Health__           | Health                                    | Helseminister                            |
+| __Industry__         | Industry                                  | Industriminister                         |
+|                      | Trade and Industry                        | Næringsminister                          |
+|                      | Petroleum and Energy                      | Olje- og energiminister                  |
+| __Justice__          | Justice                                   | Justisminister                           |
+| __Regional__         | Local Government                          | Kommunalminister                         |
+|                      | Rebuilding Finnmark                       | Minister for gjenoppb. av Finnmark       |
+| __Sea and fish__     | Fisheries                                 | Fiskeriminister                          |
+|                      | Maritime Law                              | Havrettsminister                         |
+|                      | Shipping                                  | Skipsfartsminister                       |
+| __Social__           | Children and Family Affairs               | Barne- og familieminister                |
+|                      | Family Affairs and Consumption            | Familie- og forbruksminister             |
+|                      | Social Affairs                            | Sosialminister                           |
+| __Trade__            | Trade                                     | Handelsminister                          |
+| __Transport__        | Transport and Communications              | Samferdselsminister                      |
+
