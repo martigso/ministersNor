@@ -1,6 +1,6 @@
 #' Mode
 #' 
-#' A function to extract the mode of a varible
+#' A function to extract the mode of a varible. Borrowed from user Ken Williams at https://stackoverflow.com/a/8189441
 #' 
 #' @param x A vector of class character, factor, or numeric
 #' 
